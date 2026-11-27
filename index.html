@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E2A33">
+<title>إرتقِ | IRTAQY — مدرسة رقمية</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Reem+Kufi:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-role="">
+
+<!-- ============ الصفحة الرئيسية ============ -->
+<div id="home">
+  <div class="verbar">
+    <span>إرتقِ · IRTAQY</span>
+    <b id="verTop">الإصدار 1.0.0</b>
+  </div>
+
+  <header class="hero">
+    <svg class="steps" viewBox="0 0 120 80" aria-hidden="true"><path d="M6 74h24V54h24V34h24V14h30" fill="none" stroke="#F2B632" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <h1>إرتقِ</h1>
+    <p class="lead">سبورة تفاعلية وصوت وصورة، والأستاذ هو من يمنح الكلمة.</p>
+  </header>
+
+  <main class="cards">
+    <section class="card" id="cardTeacher">
+      <h2>أنا أستاذ</h2>
+      <p class="hint">أنشئ حصة جديدة واحصل على رمز تشاركه مع تلاميذك.</p>
+      <label>اسمك<input id="tName" maxlength="30" autocomplete="name" placeholder="مثال: الأستاذ كمال"></label>
+      <label>جودة الفيديو
+        <select id="tQuality">
+          <option value="low">منخفضة (موصى بها للإنترنت الضعيف)</option>
+          <option value="mid">متوسطة</option>
+          <option value="audio">صوت فقط بدون كاميرا</option>
+        </select>
+      </label>
+      <button class="btn primary" id="btnTeacher">ابدأ الحصة</button>
+    </section>
+
+    <section class="card" id="cardStudent">
+      <h2>أنا تلميذ</h2>
+      <p class="hint">أدخل اسمك ورمز الحصة الذي أعطاك إياه أستاذك.</p>
+      <label>اسمك<input id="sName" maxlength="30" autocomplete="name" placeholder="الاسم"></label>
+      <label>رمز الحصة<input id="sCode" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="مثال: K7M2QX" class="codein"></label>
+      <button class="btn dark" id="btnStudent">انضم إلى الحصة</button>
+    </section>
+  </main>
+  <p id="homeErr" class="err" hidden></p>
+
+  <section class="help">
+    <details open>
+      <summary>تعليمات الاستعمال</summary>
+      <div class="helpbody">
+        <h3>للأستاذ</h3>
+        <ol>
+          <li>اكتب اسمك واضغط «ابدأ الحصة»، ثم اسمح للمتصفح باستعمال الكاميرا والمايك.</li>
+          <li>سيظهر رمز من 6 خانات. اضغط «دعوة» لإرساله للتلاميذ عبر واتساب أو غيره.</li>
+          <li>ارسم على السبورة بإصبعك أو بالفأرة. يرى التلاميذ الرسم مباشرة.</li>
+          <li>عندما يرفع تلميذ يده ✋ تظهر لك علامة في تبويب «التلاميذ». اضغط 🎤 لمنحه المايك، و📷 لمنحه الكاميرا. اضغط مرة أخرى لسحب الإذن.</li>
+          <li>ينتهي كل شيء عند الضغط على «إنهاء».</li>
+        </ol>
+        <h3>للتلميذ</h3>
+        <ol>
+          <li>اكتب اسمك والرمز واضغط «انضم إلى الحصة».</li>
+          <li>ستشاهد السبورة وصورة الأستاذ وتسمعه. صوتك وصورتك مغلقان افتراضياً.</li>
+          <li>للمشاركة اضغط «رفع اليد». عندما يوافق الأستاذ يشتغل المايك (والكاميرا إن سمح بها).</li>
+          <li>إن لم تسمع الصوت اضغط الزر الذي يظهر على السبورة لتفعيله.</li>
+        </ol>
+        <h3>نصائح</h3>
+        <ul>
+          <li>استعمل متصفح Chrome أو Safari حديثاً.</li>
+          <li>الأفضل أن يدرّس الأستاذ من حاسوب أو لوح لسهولة الرسم.</li>
+          <li>لا تغلق الصفحة أثناء الحصة، وفي حال انقطاع الاتصال أعد الدخول بنفس الرمز.</li>
+          <li>الحد الأقصى في هذه النسخة 8 تلاميذ لكل حصة.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+  <footer class="foot">نسخة تجريبية · <span id="verFoot">v1.0.0</span></footer>
+</div>
+
+<!-- ============ غرفة الحصة ============ -->
+<main id="room" hidden>
+  <div class="roombar">
+    <div class="rb-brand"><strong>إرتقِ</strong><span class="ver" id="verRoom">v1.0.0</span></div>
+    <button id="codeChip" class="code" title="نسخ الرمز"><small>رمز الحصة</small><b id="codeText">------</b></button>
+    <span class="status" id="status" title="الاتصال">●</span>
+    <button id="btnLeave" class="btn ghost sm student-only">خروج</button>
+    <button id="btnEnd" class="btn danger sm teacher-only">إنهاء</button>
+  </div>
+
+  <div class="layout">
+    <div class="main">
+      <div class="stage" id="stage">
+        <canvas id="board"></canvas>
+        <div class="pip" id="pip" title="اضغط للتكبير">
+          <video id="mainVideo" autoplay playsinline></video>
+          <span class="pip-label" id="pipLabel"></span>
+        </div>
+        <button id="btnFull" class="fs" title="ملء الشاشة" aria-label="ملء الشاشة">⛶</button>
+        <button id="tapPlay" class="tapplay" hidden>🔊 اضغط لتفعيل الصوت</button>
+      </div>
+
+      <div id="tiles" class="tiles"></div>
+
+      <div class="toolbar teacher-only" id="toolbar">
+        <div class="grp">
+          <button class="sw" data-c="#111827" style="--c:#111827" aria-label="أسود"></button>
+          <button class="sw" data-c="#DC2626" style="--c:#DC2626" aria-label="أحمر"></button>
+          <button class="sw" data-c="#2563EB" style="--c:#2563EB" aria-label="أزرق"></button>
+          <button class="sw" data-c="#16A34A" style="--c:#16A34A" aria-label="أخضر"></button>
+          <button class="sw" data-c="#EA580C" style="--c:#EA580C" aria-label="برتقالي"></button>
+        </div>
+        <div class="grp">
+          <button class="tb" data-w="8" aria-label="رفيع"><i style="--s:3px"></i></button>
+          <button class="tb" data-w="14" aria-label="متوسط"><i style="--s:6px"></i></button>
+          <button class="tb" data-w="28" aria-label="عريض"><i style="--s:11px"></i></button>
+        </div>
+        <div class="grp">
+          <button class="tb txt" id="btnEraser">ممحاة</button>
+          <button class="tb txt" id="btnUndo">تراجع</button>
+          <button class="tb txt" id="btnClear">مسح الكل</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn light teacher-only" id="btnMic">🎤 المايك يعمل</button>
+        <button class="btn light teacher-only" id="btnCam">📷 الكاميرا تعمل</button>
+        <button class="btn primary teacher-only" id="btnInvite">دعوة التلاميذ</button>
+        <button class="btn primary student-only" id="btnHand">✋ رفع اليد</button>
+        <button class="btn light student-only" id="btnSelfMic" hidden>🎤 مايكي يعمل</button>
+        <span class="perm student-only" id="permNote" hidden></span>
+      </div>
+    </div>
+
+    <aside class="side">
+      <nav class="tabs">
+        <button class="tab" data-tab="people" id="tabPeople">التلاميذ (<span id="count">0</span>)</button>
+        <button class="tab" data-tab="chat" id="tabChat">الدردشة <span class="badge" id="badge" hidden>0</span></button>
+      </nav>
+      <div id="panelPeople" class="panel"><div id="studentList"></div></div>
+      <div id="panelChat" class="panel" hidden>
+        <div id="chatLog" class="chatlog"></div>
+        <form id="chatForm" class="chatform" autocomplete="off">
+          <input id="chatInput" maxlength="300" placeholder="اكتب رسالة">
+          <button class="btn primary sm" type="submit">إرسال</button>
+        </form>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="config.js"></script>
+<script src="board.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
